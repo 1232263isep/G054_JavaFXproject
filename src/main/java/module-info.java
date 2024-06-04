@@ -12,4 +12,7 @@ module org.example.javafxprojectpprog {
 
     opens pt.ipp.isep.dei.esoft.project.ui.console.authorization to javafx.fxml;
     exports pt.ipp.isep.dei.esoft.project.ui.console.authorization;
+
+    opens pt.ipp.isep.dei.esoft.project.ui.console.menu to javafx.fxml;
+    exports pt.ipp.isep.dei.esoft.project.ui.console.menu;
 }

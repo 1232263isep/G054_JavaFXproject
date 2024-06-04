@@ -48,6 +48,21 @@ public class AuthenticationUI implements Runnable {
     @FXML
     void handleConfirm(ActionEvent event) {
         run();
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("org.example.javafxprojectpprog.HRmUI.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            Stage stageHRmUI = new Stage();
+            stageHRmUI.initModality(Modality.APPLICATION_MODAL);
+            stageHRmUI.setScene(scene);
+            stageHRmUI.show();
+            HRmUI HRmUI = loader.getController();
+            HRmUI.associateParent(this);
+        } catch (IOException e) {
+//           e.printStackTrace();
+            Alert a = new Alert(Alert.AlertType.ERROR, "'authentication' UI not open");
+            a.showAndWait();
+        }
     }
 
     public AuthenticationUI() {
