@@ -151,8 +151,9 @@ public class AddToDoListUI implements Runnable {
             a.showAndWait();
             flag=false;
         }
-        if (flag==true)
+        if (flag) {
             submitData();
+        }
     }
 
 
