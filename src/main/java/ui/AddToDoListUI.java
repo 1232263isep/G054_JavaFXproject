@@ -246,7 +246,6 @@ public class AddToDoListUI implements Runnable {
     }
 
     private void submitData() {
-
         try {
             boolean result = controller.addToDoList(name,description,duration,urgency,greenSpaceName);
             if (result == true) {
