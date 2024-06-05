@@ -41,7 +41,7 @@ public class GreenSpace {
     }
     @Override
     public String toString() {
-        return name +", "+ type+", "+ address;
+        return name +", "+ type+", "+ address+", "+ this.area;
     }
 
     public String getName() {return this.name;
