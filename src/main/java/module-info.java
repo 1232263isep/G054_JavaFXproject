@@ -7,12 +7,14 @@ module org.example.javafxprojectpprog {
     requires java.logging;
 
 
-    opens org.example.javafxprojectpprog to javafx.fxml;
-    exports org.example.javafxprojectpprog;
+    opens ui to javafx.fxml;
+    exports ui;
 
-    opens pt.ipp.isep.dei.esoft.project.ui.console.authorization to javafx.fxml;
-    exports pt.ipp.isep.dei.esoft.project.ui.console.authorization;
+//    opens pt.ipp.isep.dei.esoft.project.ui.console.authorization to javafx.fxml;
+  //  exports pt.ipp.isep.dei.esoft.project.ui.console.authorization;
 
-    opens pt.ipp.isep.dei.esoft.project.ui.console.menu to javafx.fxml;
-    exports pt.ipp.isep.dei.esoft.project.ui.console.menu;
+   // opens pt.ipp.isep.dei.esoft.project.ui.console.menu to javafx.fxml;
+    //exports pt.ipp.isep.dei.esoft.project.ui.console.menu;
+ //   exports pt.ipp.isep.dei.esoft.project.ui.gui;
+  //  opens pt.ipp.isep.dei.esoft.project.ui.gui to javafx.fxml;
 }
