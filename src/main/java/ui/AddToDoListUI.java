@@ -146,6 +146,15 @@ public class AddToDoListUI implements Runnable {
             a.showAndWait();
             flag=false;
         }
+        if (optLow.isSelected())
+            this.urgency="low";
+        else if (optHigh.isSelected()) {this.urgency="high";
+        } else if (optMedium.isSelected()) {this.urgency="medium";
+        }
+        if (this.urgency==null){
+            flag=false;
+        }
+        this.greenSpaceName=this.choiceGreenSpace.getSelectionModel().getSelectedItem().getName();
         if (this.choiceGreenSpace.getSelectionModel().getSelectedItem() == null) {
             Alert a = new Alert(Alert.AlertType.ERROR, "Please select a green space");
             a.showAndWait();
@@ -261,5 +270,6 @@ public class AddToDoListUI implements Runnable {
         } catch (IllegalArgumentException e) {
             System.out.println("\nError: " + e.getMessage());
         }
+
     }
 }

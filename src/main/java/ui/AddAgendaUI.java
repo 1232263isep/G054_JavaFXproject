@@ -44,7 +44,6 @@ public class AddAgendaUI implements Runnable {
 
     @FXML
     private Label lblEntry;
-
     public AddAgendaUI() {
         controller= new AddAgendaController();
     }
@@ -161,5 +160,6 @@ public class AddAgendaUI implements Runnable {
         } catch (IllegalArgumentException e) {
             System.out.println("\nError: " + e.getMessage());
         }
+
     }
 }
