@@ -38,7 +38,6 @@ public class AuthenticationUI implements Runnable {
     @FXML
     void handleConfirm(ActionEvent event) {
         run();
-        HRmUI hRmUI=new HRmUI();
     }
 
     public AuthenticationUI() {
