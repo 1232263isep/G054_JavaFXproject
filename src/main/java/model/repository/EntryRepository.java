@@ -1,5 +1,6 @@
 package model.repository;
 
+import model.Collaborator;
 import model.Entry;
 import model.GreenSpace;
 import model.Task;
@@ -10,6 +11,7 @@ import java.util.*;
 public class EntryRepository {
     private Map<String, List<Entry>> toDoList;
     private Map<String, List<Entry>> agenda;
+    private List<Entry> entries;
 
     public EntryRepository() {
         this.toDoList = new HashMap<>();
@@ -59,4 +61,14 @@ public class EntryRepository {
         }
         return allEntries;
     }
+
+    public List<Entry> getEntriesForCollaborator(Collaborator collaborator) {
+        List<Entry> result= new ArrayList<>();
+        for (List<Entry> entries1 : toDoList.values()){
+            for (Entry e: entries1){
+                if (e.getTeam().getCollaborators().contains(collaborator))
+                    result.add(e);
+            }
+        }
+        return result;}
 }

@@ -7,6 +7,7 @@ import model.Skill;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 public class CollaboratorRepository {
     private List<Collaborator> collaboratorList;
@@ -43,5 +44,16 @@ public class CollaboratorRepository {
         }
         collaboratorList.add(c);
         return true;
+    }
+    public Collaborator findCollaboratorByEmail(String email) {
+        for(Collaborator collaborator : collaboratorList){
+            if(Objects.equals(collaborator.getEmail(), email)){
+                return collaborator;
+            }
+
+        }
+
+        System.out.println("No collaborator was found with this email.");
+        return null;
     }
 }

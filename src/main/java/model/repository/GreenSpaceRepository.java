@@ -39,8 +39,9 @@ public class GreenSpaceRepository {
         if (greenSpacesMap.get(userName).contains(g)) {
             return false;
         }
+        else{
         greenSpacesMap.get(userName).add(g);
-        return true;
+        return true;}
     }
 
     /**

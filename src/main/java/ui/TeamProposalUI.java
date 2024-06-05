@@ -25,7 +25,7 @@ public class TeamProposalUI implements Runnable{
 
         List<String> skillNames = List.of(skillsInput.split(",\\s*"));
         try {
-            Team team = controller.generateTeamProposal(maxSize, minSize, skillNames);
+            Team team = controller.generateTeamProposalOld(maxSize, minSize, skillNames);
             System.out.println("Generated Team:");
             team.getCollaborators().forEach(collaborator ->
                     System.out.println(" - " + collaborator.getName()));

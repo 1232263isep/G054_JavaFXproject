@@ -34,7 +34,7 @@ public class TeamProposalController {
         this.teamRepository = repositories.getTeamRepository();
     }
 
-    public Team generateTeamProposal(int maxSize, int minSize, List<String> skillNames) {
+    public Team generateTeamProposalOld(int maxSize, int minSize, List<String> skillNames) {
         List<Skill> requiredSkills = skillNames.stream()
                 .map(skillRepository::findSkillByName)
                 .flatMap(Optional::stream)
@@ -49,7 +49,16 @@ public class TeamProposalController {
         List<Collaborator> teamMembers = potentialMembers.stream().limit(maxSize).collect(Collectors.toList());
         return new Team("GeneratedTeam", teamMembers);
     }
+    public Team generateTeamProposal(int maxSize, int minSize, List<Skill> skils) {
+        List<Collaborator> potentialMembers = findPotentialTeamMembers(skils);
 
+        if (potentialMembers.size() < minSize) {
+            throw new IllegalArgumentException("Not enough collaborators with the required skills.");
+        }
+
+        List<Collaborator> teamMembers = potentialMembers.stream().limit(maxSize).collect(Collectors.toList());
+        return new Team("GeneratedTeam", teamMembers);
+    }
     public List<Collaborator> findPotentialTeamMembers(List<Skill> requiredSkills) {
         return collaboratorRepository.getCollaboratorList().stream()
                 .filter(collaborator -> collaborator.getSkills().containsAll(requiredSkills))
@@ -67,7 +76,7 @@ public class TeamProposalController {
         return collaboratorRepository.getCollaboratorList();
     }
 
-    public boolean assignGeneratedTeamToEntry(Entry entry, List<String> skillNames, int maxSize, int minSize) {
+    public boolean assignGeneratedTeamToEntry(Entry entry, List<Skill> skillNames, int maxSize, int minSize) {
         Team team = generateTeamProposal(maxSize, minSize, skillNames);
         if (team != null && entry.assignTeam(team)) {
             teamRepository.addTeam(team);
