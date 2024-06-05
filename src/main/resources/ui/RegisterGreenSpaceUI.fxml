@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.RegisterGreenSpaceUI">
+   <children>
+      <GridPane layoutX="162.0" layoutY="100.0" prefHeight="217.0" prefWidth="288.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="89.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="83.0" minHeight="10.0" prefHeight="57.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="59.0" minHeight="10.0" prefHeight="59.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <children>
+                  <CheckBox fx:id="optGarden" mnemonicParsing="false" onAction="#handleGarden" text="Garden" />
+                  <CheckBox fx:id="optMedium" mnemonicParsing="false" onAction="#handleMedium" text="Medium-Sized Park" />
+                  <CheckBox fx:id="optLarge" mnemonicParsing="false" onAction="#handleLarge" text="Large-Sized Park" />
+               </children>
+            </VBox>
+            <Label fx:id="lblName" text="Name of Green Space" />
+            <Label fx:id="lblType" text="Type of Green Spce" GridPane.rowIndex="1" />
+            <Label fx:id="lblArea" text="Area of Green Space" GridPane.rowIndex="2" />
+            <Label fx:id="lblAddress" text="Address of Green Space" GridPane.rowIndex="3" />
+            <TextField fx:id="txtName" GridPane.columnIndex="1" />
+            <TextField fx:id="txtArea" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="txtAddress" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+         </children>
+      </GridPane>
+      <Button fx:id="btnConfirm" layoutX="280.0" layoutY="317.0" mnemonicParsing="false" onAction="#handleConfirm" text="Confirm" />
+   </children>
+</AnchorPane>

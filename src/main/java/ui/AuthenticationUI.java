@@ -60,7 +60,7 @@ public class AuthenticationUI implements Runnable {
                 }
             }
         }
-        this.logout();
+        //this.logout();
     }
 
     private List<MenuItem> getMenuItemForRoles() {
@@ -87,8 +87,6 @@ public class AuthenticationUI implements Runnable {
             System.out.println("Invalid UserId and/or Password. \n You have  " + maxAttempts + " more attempt(s).");
             Alert alert = new Alert(Alert.AlertType.ERROR, "Invalid UserId and/or Password. \n Please try again.");
             alert.showAndWait();
-            txtEmail.clear();
-            txtPassword.clear();
         }
         return success;
     }
