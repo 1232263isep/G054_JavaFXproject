@@ -76,6 +76,9 @@ public class Entry {
         if (team == null) {
             return false;
         }
+        if (this.team!=null){
+            return false;
+        }
         this.team = team;
         this.status = "Assigned";
         return true;

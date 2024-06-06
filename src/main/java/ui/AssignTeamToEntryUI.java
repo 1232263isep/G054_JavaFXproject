@@ -97,6 +97,7 @@ public class AssignTeamToEntryUI implements Runnable {
             } else {
                 System.out.println("Failed to assign the team to the entry. Please check the details and try again.");
                 Alert a=new Alert(Alert.AlertType.ERROR, "Failed to assign the team to the entry");
+                a.showAndWait();
         }
     }
     }
