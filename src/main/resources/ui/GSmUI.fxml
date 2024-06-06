@@ -7,7 +7,6 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.GSmUI">
    <children>
       <VBox layoutX="150.0" layoutY="34.0" prefHeight="321.0" prefWidth="298.0">
@@ -38,7 +37,7 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <Button fx:id="btnassignTeamGreenSpace" mnemonicParsing="false" onAction="#handleassignTeamGreenSpace" text="assign team to Green Space" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP" />
+                  <Button fx:id="btnassignTeamGreenSpace" mnemonicParsing="false" onAction="#handleassignTeamGreenSpace" text="Assign team to Entry" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP" />
                </children>
             </GridPane>
             <GridPane prefHeight="90.0" prefWidth="298.0">

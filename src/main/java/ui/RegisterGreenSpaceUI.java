@@ -22,6 +22,7 @@ public class RegisterGreenSpaceUI implements Runnable {
     private int area;
     private String name;
     private String address;
+    private Stage stage;
     @FXML
     private Button btnConfirm;
 
@@ -69,6 +70,7 @@ public class RegisterGreenSpaceUI implements Runnable {
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setScene(scene);
             stage.show();
+            this.stage=stage;
         } catch (IOException e) {
 //           e.printStackTrace();
             Alert a = new Alert(Alert.AlertType.ERROR, "'authentication' UI not open");
@@ -185,5 +187,11 @@ public class RegisterGreenSpaceUI implements Runnable {
         } catch (IllegalArgumentException e) {
             System.out.println("\nError: " + e.getMessage());
         }
+        this.txtAddress.clear();
+        this.txtArea.clear();
+        this.txtName.clear();
+        this.optMedium.setSelected(false);
+        this.optLarge.setSelected(false);
+        this.optGarden.setSelected(false);
     }
 }

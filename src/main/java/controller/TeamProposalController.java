@@ -80,8 +80,20 @@ public class TeamProposalController {
         Team team = generateTeamProposal(maxSize, minSize, skillNames);
         if (team != null && entry.assignTeam(team)) {
             teamRepository.addTeam(team);
+            entry.assignTeam(team);
             notifyTeamMembers(team, "You have been assigned to a new task: " + entry.getTask().getDescription());
-            System.out.println(teamRepository.toString());
+            System.out.println(team.toString());
+            return true;
+        }
+        return false;
+    }
+
+    public boolean assignTeamToEntry(Entry entry, String teamId) {
+        Optional<Team> optionalTeam = teamRepository.findTeamById(teamId);
+        if (optionalTeam.isPresent()) {
+            Team team = optionalTeam.get();
+            entry.assignTeam(team);
+            notifyTeamMembers(team, "You have been assigned to a new task: " + entry.getTask().getDescription());
             return true;
         }
         return false;
@@ -100,15 +112,5 @@ public class TeamProposalController {
         return entryRepository.getAllEntriesForUser(userName);
     }
 
-    public boolean assignTeamToEntry(Entry entry, String teamId) {
-        Optional<Team> optionalTeam = teamRepository.findTeamById(teamId);
 
-        if (optionalTeam.isPresent()) {
-            Team team = optionalTeam.get();
-            entry.assignTeam(team);
-            notifyTeamMembers(team, "You have been assigned to a new task: " + entry.getTask().getDescription());
-            return true;
-        }
-        return false;
-    }
 }

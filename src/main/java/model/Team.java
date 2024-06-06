@@ -18,4 +18,12 @@ public class Team {
     public List<Collaborator> getCollaborators() {
         return collaborators;
     }
+
+    @Override
+    public String toString() {
+        return "Team{" +
+                "id='" + id + '\'' +
+                ", collaborators=" + collaborators +
+                '}';
+    }
 }

@@ -55,7 +55,7 @@ public class EntryRepository {
     }
 
     public List<Entry> getAllEntriesForUser(String userName) {
-        List<Entry> allEntries = new ArrayList<>(getToDoList(userName));
+        List<Entry> allEntries = new ArrayList<Entry>();
         if (agenda.containsKey(userName)) {
             allEntries.addAll(agenda.get(userName));
         }
@@ -64,7 +64,7 @@ public class EntryRepository {
 
     public List<Entry> getEntriesForCollaborator(Collaborator collaborator) {
         List<Entry> result= new ArrayList<>();
-        for (List<Entry> entries1 : toDoList.values()){
+        for (List<Entry> entries1 : agenda.values()){
             for (Entry e: entries1){
                 if (e.getTeam().getCollaborators().contains(collaborator))
                     result.add(e);
