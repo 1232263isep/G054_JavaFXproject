@@ -1,12 +1,23 @@
 package ui;
 
+import javafx.application.Platform;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import model.repository.CollaboratorRepository;
 import model.repository.Repositories;
 import ui.*;
 import ui.utils.Utils;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 
 /**
  * Employee User Interface.
@@ -17,20 +28,38 @@ public class EmployeeUI implements Runnable {
 
     private Repositories repositories;
 
+        @FXML
+        private Button btnExit;
+
+        @FXML
+        private Button btnViewTasks;
+
+        @FXML
+        void handleExit(ActionEvent event) {
+            Platform.exit();
+        }
+
+        @FXML
+        void handleView(ActionEvent event) {
+            ConsultEntriesUI consultEntriesUI=new ConsultEntriesUI();
+            consultEntriesUI.run();
+        }
 
     @Override
     public void run() {
-        List<MenuItem> options = new ArrayList<>();
-        options.add(new MenuItem("View tasks", new ConsultEntriesUI()));
-
-        int option = 0;
-        do {
-            option = Utils.showAndSelectIndex(options, "\n\n--- EMPLOYEE MENU -------------------------");
-
-            if ((option >= 0) && (option < options.size())) {
-                options.get(option).run();
-            }
-        } while (option != -1);
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("EmployeeUI.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+//           e.printStackTrace();
+            Alert a = new Alert(Alert.AlertType.ERROR, "'authentication' UI not open");
+            a.showAndWait();
+        }
     }
 
 
