@@ -154,7 +154,13 @@ public class AddToDoListUI implements Runnable {
         if (this.urgency==null){
             flag=false;
         }
-        this.greenSpaceName=this.choiceGreenSpace.getSelectionModel().getSelectedItem().getName();
+        try {
+            this.greenSpaceName = this.choiceGreenSpace.getSelectionModel().getSelectedItem().getName();
+        } catch (Exception e){
+            Alert alert=new Alert(Alert.AlertType.ERROR,"Error, please select a green space");
+            alert.showAndWait();
+            flag=false;
+        }
         if (this.choiceGreenSpace.getSelectionModel().getSelectedItem() == null) {
             Alert a = new Alert(Alert.AlertType.ERROR, "Please select a green space");
             a.showAndWait();
@@ -162,12 +168,17 @@ public class AddToDoListUI implements Runnable {
         }
         if (flag) {
             submitData();
+            this.txtDays.clear();
+            this.txtDescription.clear();
+            this.txtHours.clear();
+            this.txtNameTask.clear();
+            this.optMedium.setSelected(false);
+            this.optHigh.setSelected(false);
+            this.optLow.setSelected(false);
+            this.choiceGreenSpace.getSelectionModel().clearSelection();
         }
-        this.txtDays.clear();
-        this.txtDescription.clear();
-        this.txtDuration.clear();
-        this.txtHours.clear();
-        this.txtNameTask.clear();
+
+
     }
 
 
