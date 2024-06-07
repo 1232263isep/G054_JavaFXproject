@@ -23,7 +23,7 @@ public class GreenSpace {
             return false;
         }
         GreenSpace c = (GreenSpace) o;
-        return (c.name==name && c.address==address);
+        return (c.name.equals(name) && c.address.equals(address));
     }
 
     @Override

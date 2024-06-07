@@ -51,7 +51,7 @@ public class Collaborator {
             return false;
         }
         Collaborator c = (Collaborator) o;
-        return c.IDNumber==IDNumber;
+        return c.IDNumber.equals(IDNumber);
     }
 
     @Override
