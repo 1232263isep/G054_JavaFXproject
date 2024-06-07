@@ -10,12 +10,9 @@ import javafx.scene.control.Alert;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.GreenSpace;
-import model.Task;
-import ui.utils.Utils;
 
 import java.io.IOException;
 import java.time.Duration;
-import java.util.ArrayList;
 import java.util.List;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -69,8 +66,6 @@ public class AddToDoListUI implements Runnable {
     @FXML
     private TextField txtDuration;
     @FXML
-    private Button btnShowGreenSpaces;
-    @FXML
     private TextField txtNameTask;
 
     public AddToDoListUI() {
@@ -95,7 +90,7 @@ public class AddToDoListUI implements Runnable {
 
     }
     @FXML
-    void handleShowGreenSpace(ActionEvent event) {
+    void initialize(){
         List<GreenSpace> greenSpaces=controller.getGreenSpaceList();
         ObservableList<GreenSpace> greenSpaces1 = FXCollections.observableArrayList();
         greenSpaces1.addAll(greenSpaces);
@@ -179,96 +174,6 @@ public class AddToDoListUI implements Runnable {
         }
 
 
-    }
-
-
-    private void requestTask(){
-        List<Task> taskList=controller.getTaskList();
-        int i=1;
-        for (Task t:taskList){
-            System.out.println(i+". "+t);
-            i++;
-        }
-        System.out.println("0. New Task");
-        int choice=-1;
-        while (choice==-1) {
-            try {
-                choice = Integer.parseInt(Utils.readLineFromConsole("Enter the number of the selected task, or 0 to create a new task"));
-            } catch (Exception e) {
-                choice=-1;
-                System.out.println("Wrong format, please enter the number of the selected task, or 0 to create a new task");
-                continue;
-            }
-            if (choice==0){
-                name=Utils.readLineFromConsole("Enter the name of the new task").toLowerCase();
-                description=Utils.readLineFromConsole("Enter the description of the new task").toLowerCase();
-            }
-            else if(choice<=taskList.size()){
-                name=taskList.get(choice-1).getName();
-                description=taskList.get(choice-1).getDescription();
-            }
-            else {
-                choice=-1;
-                System.out.println("Wrong number entered, please retry");
-                continue;
-            }
-        }
-    }
-    private void  requestEntryData() {
-        duration=null;
-        while (duration == null) {
-            System.out.println("Please enter a valid duration: ");
-            int days = -1;
-            while (days == -1) {
-                try {
-                    days = Integer.parseInt(Utils.readLineFromConsole("Days: "));
-                } catch (Exception e) {
-                    days = -1;
-                    System.out.println("Error, wrong format, please insert the number of days required");
-                    continue;
-                }
-            }
-            int hours = -1;
-            while (hours == -1) {
-                try {
-                    hours = Integer.parseInt(Utils.readLineFromConsole("Hours: "));
-                } catch (Exception e) {
-                    hours = -1;
-                    System.out.println("Error, wrong format, please insert the number of hours required");
-                    continue;
-                }
-            }
-
-        }
-        urgency=null;
-        while (urgency==null){
-            int choice=0;
-            System.out.println("Please enter the level of urgency: ");
-            System.out.println("1) Low");
-            System.out.println("2) Medium");
-            System.out.println("3) High");
-            while (choice == 0) {
-                try {
-                    choice = Integer.parseInt(Utils.readLineFromConsole("Enter the number of the choosen option: "));
-                } catch (Exception e) {
-                    choice = 0;
-                    System.out.println("Invalid format, please select one option");
-                    continue;
-                }
-                if (choice < 0 || choice > 3) {
-                    choice = 0;
-                    System.out.println("Number selected out of range, please retry");
-                    continue;
-                }
-                if (choice == 1) {
-                    urgency = "Low";
-                } else if (choice == 2) {
-                    urgency = "Medium";
-                } else if (choice == 3) {
-                    urgency = "High";
-                }
-            }
-        }
     }
 
     private void submitData() {
