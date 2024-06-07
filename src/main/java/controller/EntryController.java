@@ -31,13 +31,5 @@ public class EntryController {
             }
         }
         return result;
-                /*entryRepository.getEntriesForCollaborator(collaborator).stream()
-                .filter(entry -> {
-                    Date entryDate = entry.getDate();
-                    return (entryDate.equals(startDate) || entryDate.after(startDate)) &&
-                            (entryDate.equals(endDate) || entryDate.before(endDate));
-                })
-                .sorted((entry1, entry2) -> entry1.getDate().compareTo(entry2.getDate()))
-                .collect(Collectors.toList());*/
     }
 }
