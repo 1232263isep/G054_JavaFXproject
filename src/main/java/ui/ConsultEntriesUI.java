@@ -86,11 +86,16 @@ public class ConsultEntriesUI implements Runnable{
             alert.showAndWait();
             flag=false;
         }
+        if (this.endDate==null || this.startDate==null){
+            Alert alert=new Alert(Alert.AlertType.ERROR,"Select valid dates");
+            alert.showAndWait();
+            flag=false;
+        }
         if (flag=true){
-        List<Entry> entries = entryController.getEntriesForCollaboratorBetweenDates(collaborator, startDate, endDate);
-        String out="Entries assigned to " + collaborator.getName() + " between " + startDate + " and " + endDate + ":";
-        for (Entry entry : entries) {
-            out=out+'\n'+entry.getTask().getDescription() + " - " + entry.getDate();
+            List<Entry> entries = entryController.getEntriesForCollaboratorBetweenDates(collaborator, startDate, endDate);
+            String out="Entries assigned to " + collaborator.getName() + " between " + startDate + " and " + endDate + ":";
+            for (Entry entry : entries) {
+                out=out+'\n'+entry.getTask().getDescription() + " - " + entry.getDate();
         }
         txtOut.setText(out);
         }
