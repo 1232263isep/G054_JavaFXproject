@@ -49,16 +49,7 @@ public class TeamProposalController {
         List<Collaborator> teamMembers = potentialMembers.stream().limit(maxSize).collect(Collectors.toList());
         return new Team("GeneratedTeam", teamMembers);
     }
-    public Team generateTeamProposal(int maxSize, int minSize, List<Skill> skils) {
-        List<Collaborator> potentialMembers = findPotentialTeamMembers(skils);
 
-        if (potentialMembers.size() < minSize) {
-            throw new IllegalArgumentException("Not enough collaborators with the required skills.");
-        }
-
-        List<Collaborator> teamMembers = potentialMembers.stream().limit(maxSize).collect(Collectors.toList());
-        return new Team("GeneratedTeam", teamMembers);
-    }
     public List<Collaborator> findPotentialTeamMembers(List<Skill> requiredSkills) {
         return collaboratorRepository.getCollaboratorList().stream()
                 .filter(collaborator -> collaborator.getSkills().containsAll(requiredSkills))

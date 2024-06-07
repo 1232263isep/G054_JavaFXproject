@@ -92,12 +92,23 @@ public class ConsultEntriesUI implements Runnable{
             flag=false;
         }
         if (flag=true){
-            List<Entry> entries = entryController.getEntriesForCollaboratorBetweenDates(collaborator, startDate, endDate);
             String out="Entries assigned to " + collaborator.getName() + " between " + startDate + " and " + endDate + ":";
-            for (Entry entry : entries) {
-                out=out+'\n'+entry.getTask().getDescription() + " - " + entry.getDate();
-        }
-        txtOut.setText(out);
+            try {
+                List<Entry> entries = entryController.getEntriesForCollaboratorBetweenDates(collaborator, startDate, endDate);
+                if (entries.size()==0){
+                    Alert alert=new Alert(Alert.AlertType.INFORMATION,"You don't have tasks in this period");
+                    alert.showAndWait();
+                }
+                else {
+                    for (Entry entry : entries) {
+                        out = out + '\n' + entry.getTask().getDescription() + " - " + entry.getDate();
+                    }
+                }
+                txtOut.setText(out);
+            }catch (Exception e){
+                Alert alert=new Alert(Alert.AlertType.INFORMATION,"You don't have tasks in this period");
+                alert.showAndWait();
+            }
         }
     }
 
