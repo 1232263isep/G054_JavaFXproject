@@ -14,6 +14,7 @@ public class NotificationRepository {
 
     public void addNotification(Notification notification) {
         notifications.add(notification);
+        notification.sendNotification();
     }
 
     public List<Notification> getNotifications() {
