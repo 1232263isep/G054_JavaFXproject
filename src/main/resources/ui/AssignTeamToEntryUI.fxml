@@ -23,11 +23,10 @@
          <children>
             <Label fx:id="lblMax" text="Select a team" GridPane.rowIndex="1" />
             <Label fx:id="lblEntry" text="Select an Entry " />
-            <ChoiceBox fx:id="choiceEntry" onDragDetected="#handleView" prefHeight="25.0" prefWidth="330.0" GridPane.columnIndex="1" />
-            <ChoiceBox fx:id="choiceTem" onDragDetected="#handleView" prefHeight="25.0" prefWidth="330.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <ChoiceBox fx:id="choiceEntry" prefHeight="25.0" prefWidth="330.0" GridPane.columnIndex="1" />
+            <ChoiceBox fx:id="choiceTem" prefHeight="25.0" prefWidth="330.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
       </GridPane>
       <Button fx:id="btnConfirm" layoutX="271.0" layoutY="291.0" mnemonicParsing="false" onAction="#handleConfirm" text="Confirm" />
-      <Button fx:id="btnView" layoutX="237.0" layoutY="263.0" mnemonicParsing="false" onAction="#handleView" text="View team and entry" />
    </children>
 </AnchorPane>

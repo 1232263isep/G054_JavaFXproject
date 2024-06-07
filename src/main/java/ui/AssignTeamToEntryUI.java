@@ -10,31 +10,21 @@ import javafx.scene.control.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.Entry;
-import model.Skill;
 import model.Team;
-import ui.utils.Utils;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
 public class AssignTeamToEntryUI implements Runnable {
     private final TeamProposalController controller;
-    private int maxsize;
-    private int minsize;
     private Entry entry;
-    private List<Skill> skills;
     private Team team;
-    @FXML
-    private ListView<Skill> ListViewSkills;
+
 
     @FXML
     private Button btnConfirm;
-
-    @FXML
-    private Button btnView;
 
     @FXML
     private ChoiceBox<Entry> choiceEntry;
@@ -43,21 +33,6 @@ public class AssignTeamToEntryUI implements Runnable {
 
     @FXML
     private Label lblEntry;
-
-    @FXML
-    private Label lblMax;
-
-    @FXML
-    private Label lblMin;
-
-    @FXML
-    private Label lblSkills;
-
-    @FXML
-    private TextField txtMax;
-
-    @FXML
-    private TextField txtMin;
 
     public AssignTeamToEntryUI() {
         controller = new TeamProposalController();
@@ -121,10 +96,24 @@ public class AssignTeamToEntryUI implements Runnable {
     }
 
     @FXML
-    void handleView(ActionEvent event) {
-        this.handleViewprivate();
+    void initialize(){
+        List<Entry> entries=controller.getAllEntries();
+        if (entries.isEmpty()) {
+            Alert a=new Alert(Alert.AlertType.ERROR,"No entries registered yet");
+            a.showAndWait();
+        }
+        ObservableList<Entry> entries1 = FXCollections.observableArrayList();
+        entries1.addAll(entries);
+        this.choiceEntry.setItems(entries1);
+        List<Team> teams=controller.getAllTeams();
+        if (teams.isEmpty()) {
+            Alert a=new Alert(Alert.AlertType.ERROR,"No teams registered yet");
+            a.showAndWait();
+        }
+        ObservableList<Team> tems1 = FXCollections.observableArrayList();
+        tems1.addAll(teams);
+        this.choiceTem.setItems(tems1);
     }
-
     @Override
     public void run() {
         try {
