@@ -3,17 +3,20 @@ package ui;
 import controller.AddAgendaController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import model.Entry;
 import ui.utils.Utils;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -70,7 +73,12 @@ public class AddAgendaUI implements Runnable {
     @FXML
     void handleConfirm(ActionEvent event) {
         boolean flag=true;
-        this.entry=choiceEntry.getSelectionModel().getSelectedItem();
+        try {
+            this.entry = choiceEntry.getSelectionModel().getSelectedItem();
+        } catch (Exception e){
+            Alert alert=new Alert(Alert.AlertType.ERROR,"Please select an entry");
+            alert.showAndWait();
+        }
         if (entry==null) {
             Alert a = new Alert(Alert.AlertType.ERROR, "Plese select an entry");
             a.showAndWait();
@@ -81,29 +89,39 @@ public class AddAgendaUI implements Runnable {
             a.showAndWait();
             flag=false;
         }
-        LocalDate ld = dateDate.getValue();
-        Calendar c =  Calendar.getInstance();
-        c.set(ld.getYear(), ld.getMonthValue()-1, ld.getDayOfMonth());
-        Date date = c.getTime();
-        Date today=new Date();
-        if (today.compareTo(date) > 0) {
-            Alert a=new Alert(Alert.AlertType.ERROR, "Please select a future date");
-            a.showAndWait();
-            flag=false;
+        else{
+            LocalDate ld = dateDate.getValue();
+            Calendar c =  Calendar.getInstance();
+            c.set(ld.getYear(), ld.getMonthValue()-1, ld.getDayOfMonth());
+            Date date = c.getTime();
+            Date today=new Date();
+            if (today.compareTo(date) > 0) {
+                Alert a=new Alert(Alert.AlertType.ERROR, "Please select a future date");
+                a.showAndWait();
+                flag=false;
+                this.handleShowEntriesprivate();
+            }
+            startingDate=date;
         }
-        startingDate=date;
         if (flag) {
             submitData();
+            this.choiceEntry.getSelectionModel().clearSelection();
+            ObservableList<Entry> toDoList1 = FXCollections.observableArrayList();
+            this.choiceEntry.setItems(toDoList1);
+            this.handleShowEntriesprivate();
         }
-        this.choiceEntry.getSelectionModel().clearSelection();
+
     }
 
-    @FXML
-    void handleShowEntries(ActionEvent event) {
-        List<Entry> toDoList=controller.getToDoList();
+    private void handleShowEntriesprivate() {
+        List<Entry> toDoList = controller.getToDoList();
         ObservableList<Entry> toDoList1 = FXCollections.observableArrayList();
         toDoList1.addAll(toDoList);
         this.choiceEntry.setItems(toDoList1);
+    }
+    @FXML
+    void handleShowEntries(ActionEvent event) {
+        this.handleShowEntriesprivate();
     }
 
 

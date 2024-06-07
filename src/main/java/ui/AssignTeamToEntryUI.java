@@ -98,11 +98,12 @@ public class AssignTeamToEntryUI implements Runnable {
                 System.out.println("Failed to assign the team to the entry. Please check the details and try again.");
                 Alert a=new Alert(Alert.AlertType.ERROR, "Failed to assign the team to the entry");
                 a.showAndWait();
-        }
-    }
-    this.txtMax.clear();
-        this.txtMin.clear();
-        this.choiceEntry.getSelectionModel().clearSelection();
+            }
+            this.txtMax.clear();
+            this.txtMin.clear();
+            this.choiceEntry.getSelectionModel().clearSelection();
+     }
+
     }
 
     @FXML
