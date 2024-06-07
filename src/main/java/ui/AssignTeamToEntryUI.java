@@ -102,12 +102,15 @@ public class AssignTeamToEntryUI implements Runnable {
             this.txtMax.clear();
             this.txtMin.clear();
             this.choiceEntry.getSelectionModel().clearSelection();
+            ObservableList<Entry> list = FXCollections.observableArrayList();
+            this.choiceEntry.setItems(list);
+            this.handleViewprivate();
      }
 
     }
 
-    @FXML
-    void handleView(ActionEvent event) {
+
+    private void handleViewprivate() {
         List<Entry> entries=controller.getAllEntries();
         if (entries.isEmpty()) {
             Alert a=new Alert(Alert.AlertType.ERROR,"No entries registered yet");
@@ -125,6 +128,11 @@ public class AssignTeamToEntryUI implements Runnable {
         skills.addAll(allSkills);
         this.ListViewSkills.setItems(skills);
         this.ListViewSkills.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+    }
+
+    @FXML
+    void handleView(ActionEvent event) {
+        this.handleViewprivate();
     }
 
     @Override

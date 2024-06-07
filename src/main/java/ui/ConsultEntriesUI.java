@@ -59,20 +59,33 @@ public class ConsultEntriesUI implements Runnable{
     @FXML
     void handleConfirm(ActionEvent event) {
         String email = authenticationRepository.getCurrentUserSession().getUserId().toString();
-
+        boolean flag=true;
         Collaborator collaborator = collaboratorRepository.findCollaboratorByEmail(email);
         if (collaborator == null) {
             Alert alert=new Alert(Alert.AlertType.ERROR,"Collaborator not found");
             alert.showAndWait();
+            flag=false;
         }
-        LocalDate sd = dateStartingDate.getValue();
-        Calendar c =  Calendar.getInstance();
-        c.set(sd.getYear(), sd.getMonthValue()-1, sd.getDayOfMonth());
-        this.startDate = c.getTime();
-        LocalDate ed = dateEndDate.getValue();
-        Calendar c1 =  Calendar.getInstance();
-        c1.set(ed.getYear(), ed.getMonthValue()-1, ed.getDayOfMonth());
-        this.endDate = c1.getTime();
+        try {
+            LocalDate sd = dateStartingDate.getValue();
+            Calendar c = Calendar.getInstance();
+            c.set(sd.getYear(), sd.getMonthValue() - 1, sd.getDayOfMonth());
+            this.startDate = c.getTime();
+        } catch (NullPointerException e) {
+            Alert alert=new Alert(Alert.AlertType.ERROR,"Select a valid date");
+            alert.showAndWait();
+            flag=false;
+        }
+        try {
+            LocalDate ed = dateEndDate.getValue();
+            Calendar c1 = Calendar.getInstance();
+            c1.set(ed.getYear(), ed.getMonthValue() - 1, ed.getDayOfMonth());
+            this.endDate = c1.getTime();
+        } catch (NullPointerException e) {
+            Alert alert=new Alert(Alert.AlertType.ERROR,"Select a valid date");
+            alert.showAndWait();
+            flag=false;
+        }
         List<Entry> entries = entryController.getEntriesForCollaboratorBetweenDates(collaborator, startDate, endDate);
         String out="Entries assigned to " + collaborator.getName() + " between " + startDate + " and " + endDate + ":";
         for (Entry entry : entries) {
