@@ -39,19 +39,21 @@ public class EntryRepository {
     }
 
     public boolean addAgenda(Entry entry, Date startingDate, String userName) {
-        entry.schedule(startingDate);
-        if (!agenda.containsKey(userName)) {
-            List<Entry> l = new ArrayList<>();
-            l.add(entry);
-            agenda.put(userName, l);
+        if(entry.schedule(startingDate)) {
+            if (!agenda.containsKey(userName)) {
+                List<Entry> l = new ArrayList<>();
+                l.add(entry);
+                agenda.put(userName, l);
+                return true;
+            }
+
+            if (agenda.get(userName).contains(entry)) {
+                return false;
+            }
+            agenda.get(userName).add(entry);
             return true;
         }
-
-        if (agenda.get(userName).contains(entry)) {
-            return false;
-        }
-        agenda.get(userName).add(entry);
-        return true;
+        return false;
     }
 
     public List<Entry> getAllEntriesForUser(String userName) {

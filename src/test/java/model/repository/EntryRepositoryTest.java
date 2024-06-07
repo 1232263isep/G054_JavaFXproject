@@ -104,12 +104,11 @@ class EntryRepositoryTest {
     @Test
     void getToDoListEmpty() {
         //Arrange
-        String username="gsm@this.app";
-        List<Entry> l1=null;
+        String username="gsm@this.com";
         boolean expected=true;
         //Act
         List<Entry> l2=entryRepository.getToDoList(username);
-        boolean result=l1==l2;
+        boolean result=(l2.isEmpty());
         //Assert
         assertEquals(expected,result);
     }

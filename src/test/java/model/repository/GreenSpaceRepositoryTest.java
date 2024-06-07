@@ -38,11 +38,13 @@ class GreenSpaceRepositoryTest {
         String type="Garden";
         int area=35;
         String address="123 Main Street";
+        String type2="Medium Sized Park";
+        int area2=34;
         String username="gsm@this.app";
         boolean expected=false;
         //Act
         greenSpaceRepository.registerGreenSpace(name, type, area, address, username);
-        boolean result=greenSpaceRepository.registerGreenSpace(name, type, area, address, username);
+        boolean result=greenSpaceRepository.registerGreenSpace(name, type2, area2, address, username);
         //Assert
         assertEquals(expected,result);
     }

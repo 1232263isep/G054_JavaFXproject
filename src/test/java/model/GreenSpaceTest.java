@@ -15,7 +15,9 @@ class GreenSpaceTest {
         int area=35;
         String address="123 Main Street";
         greenSpace=new GreenSpace(name,type,area,address);
-        greenSpace1=new GreenSpace(name,type,area,address);
+        String type1="Medium Sized Park";
+        int area1=45;
+        greenSpace1=new GreenSpace(name,type1,area1,address);
         boolean expected=true;
         //Act
         boolean result=greenSpace.equals(greenSpace1);
