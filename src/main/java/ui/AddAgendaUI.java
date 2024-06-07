@@ -3,20 +3,16 @@ package ui;
 import controller.AddAgendaController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 import model.Entry;
-import ui.utils.Utils;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -32,9 +28,6 @@ public class AddAgendaUI implements Runnable {
 
     @FXML
     private Button btnConfirm;
-
-    @FXML
-    private Button btnEntries;
 
     @FXML
     private ChoiceBox<Entry> choiceEntry;
@@ -68,7 +61,13 @@ public class AddAgendaUI implements Runnable {
         }
 
     }
-
+    @FXML
+    void initialize(){
+        List<Entry> toDoList = controller.getToDoList();
+        ObservableList<Entry> toDoList1 = FXCollections.observableArrayList();
+        toDoList1.addAll(toDoList);
+        this.choiceEntry.setItems(toDoList1);
+    }
 
     @FXML
     void handleConfirm(ActionEvent event) {
@@ -119,56 +118,7 @@ public class AddAgendaUI implements Runnable {
         toDoList1.addAll(toDoList);
         this.choiceEntry.setItems(toDoList1);
     }
-    @FXML
-    void handleShowEntries(ActionEvent event) {
-        this.handleShowEntriesprivate();
-    }
 
-
-   /* private void requestEntry(){
-
-        int i=1;
-        for (Entry e:toDoList){
-            System.out.println(i+". "+e);
-            i++;
-        }
-        int choice=-1;
-        while (choice==-1) {
-            try {
-                choice = Integer.parseInt(Utils.readLineFromConsole("Enter the number of the selected task"));
-            } catch (Exception e) {
-                choice=-1;
-                System.out.println("Wrong format, please enter the number of the selected task");
-                continue;
-            }
-            if(choice<=toDoList.size()){
-                entry=toDoList.get(choice-1);
-            }
-            else {
-                choice=-1;
-                System.out.println("Wrong number entered, please retry");
-                continue;
-            }
-        }
-    }
-    private void  requestStartingDate() {
-        Date today=new Date();
-        startingDate = null;
-        while (startingDate == null) {
-            try {
-                startingDate = new Date(Utils.readLineFromConsole("Enter the starting date (yyyy/mm/dd): "));
-            } catch (Exception e) {
-                System.out.println("Invalid date format, retry");
-                continue;
-            }
-            if (today.compareTo(startingDate) > 0) {
-                startingDate = null;
-                System.out.println("The can't be in the past, please retry");
-                continue;
-            }
-        }
-    }
-*/
     private void submitData() {
         try {
             boolean result = controller.addAgenda(entry,startingDate);
