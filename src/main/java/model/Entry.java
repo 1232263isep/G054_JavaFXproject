@@ -73,9 +73,6 @@ public class Entry {
     }
 
     public boolean assignTeam(Team team) {
-        if (team == null) {
-            return false;
-        }
         if (this.team!=null){
             return false;
         }

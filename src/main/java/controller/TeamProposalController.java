@@ -76,11 +76,8 @@ public class TeamProposalController {
         return collaboratorRepository.getCollaboratorList();
     }
 
-    public boolean assignGeneratedTeamToEntry(Entry entry, List<Skill> skillNames, int maxSize, int minSize) {
-        Team team = generateTeamProposal(maxSize, minSize, skillNames);
+    public boolean assignGeneratedTeamToEntry(Entry entry, Team team) {
         if (team != null && entry.assignTeam(team)) {
-            teamRepository.addTeam(team);
-            entry.assignTeam(team);
             notifyTeamMembers(team, "You have been assigned to a new task: " + entry.getTask().getDescription());
             System.out.println(team.toString());
             return true;
@@ -113,4 +110,7 @@ public class TeamProposalController {
     }
 
 
+    public List<Team> getAllTeams() {
+        return teamRepository.getTeams();
+    }
 }

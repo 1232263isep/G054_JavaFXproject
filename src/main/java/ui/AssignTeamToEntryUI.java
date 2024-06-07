@@ -11,6 +11,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.Entry;
 import model.Skill;
+import model.Team;
 import ui.utils.Utils;
 
 import java.io.IOException;
@@ -25,6 +26,7 @@ public class AssignTeamToEntryUI implements Runnable {
     private int minsize;
     private Entry entry;
     private List<Skill> skills;
+    private Team team;
     @FXML
     private ListView<Skill> ListViewSkills;
 
@@ -36,6 +38,8 @@ public class AssignTeamToEntryUI implements Runnable {
 
     @FXML
     private ChoiceBox<Entry> choiceEntry;
+    @FXML
+    private ChoiceBox<Team> choiceTem;
 
     @FXML
     private Label lblEntry;
@@ -62,34 +66,20 @@ public class AssignTeamToEntryUI implements Runnable {
     @FXML
     void handleConfirm(ActionEvent event) {
         boolean flag=true;
-        try {
-            this.maxsize = Integer.parseInt(txtMax.getText());
-        } catch (NumberFormatException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Max size must be an integer");
-            alert.showAndWait();
-            flag=false;
-        }
-        try{
-            this.minsize=Integer.parseInt(txtMin.getText())
-;        } catch (NumberFormatException e){
-            Alert a=new Alert(Alert.AlertType.ERROR,"Min size must be an integer");
-            a.showAndWait();
-            flag=false;
-        }
         this.entry=this.choiceEntry.getSelectionModel().getSelectedItem();
         if (this.entry==null){
             Alert alert=new Alert(Alert.AlertType.ERROR,"Select an Entry");
             alert.showAndWait();
             flag=false;
         }
-        this.skills=this.ListViewSkills.getSelectionModel().getSelectedItems();
-        if (this.skills==null || this.skills.size()==0){
-            Alert alert=new Alert(Alert.AlertType.ERROR,"Select skills");
+        this.team=this.choiceTem.getSelectionModel().getSelectedItem();
+        if (this.team==null){
+            Alert alert=new Alert(Alert.AlertType.ERROR,"Select a Team");
             alert.showAndWait();
             flag=false;
         }
         if (flag) {
-            boolean success = controller.assignGeneratedTeamToEntry(this.entry, this.skills, this.maxsize, this.minsize);
+            boolean success = controller.assignGeneratedTeamToEntry(this.entry, this.team);
             if (success) {
                 System.out.println("Team successfully assigned to the entry.");
                 Alert a=new Alert(Alert.AlertType.CONFIRMATION,"Team successfully assigned to the entry");
@@ -99,11 +89,12 @@ public class AssignTeamToEntryUI implements Runnable {
                 Alert a=new Alert(Alert.AlertType.ERROR, "Failed to assign the team to the entry");
                 a.showAndWait();
             }
-            this.txtMax.clear();
-            this.txtMin.clear();
             this.choiceEntry.getSelectionModel().clearSelection();
             ObservableList<Entry> list = FXCollections.observableArrayList();
             this.choiceEntry.setItems(list);
+            this.choiceTem.getSelectionModel().clearSelection();
+            ObservableList<Team> teams = FXCollections.observableArrayList();
+            this.choiceTem.setItems(teams);
             this.handleViewprivate();
      }
 
@@ -119,15 +110,14 @@ public class AssignTeamToEntryUI implements Runnable {
         ObservableList<Entry> entries1 = FXCollections.observableArrayList();
         entries1.addAll(entries);
         this.choiceEntry.setItems(entries1);
-        ObservableList<Skill> skills = FXCollections.observableArrayList();
-        List<Skill> allSkills = controller.getAllSkills();
-        if (allSkills.isEmpty()) {
-            Alert a=new Alert(Alert.AlertType.ERROR,"No skills registered yet");
+        List<Team> teams=controller.getAllTeams();
+        if (teams.isEmpty()) {
+            Alert a=new Alert(Alert.AlertType.ERROR,"No teams registered yet");
             a.showAndWait();
         }
-        skills.addAll(allSkills);
-        this.ListViewSkills.setItems(skills);
-        this.ListViewSkills.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        ObservableList<Team> tems1 = FXCollections.observableArrayList();
+        tems1.addAll(teams);
+        this.choiceTem.setItems(tems1);
     }
 
     @FXML
@@ -151,6 +141,7 @@ public class AssignTeamToEntryUI implements Runnable {
             Alert a = new Alert(Alert.AlertType.ERROR, "'authentication' UI not open");
             a.showAndWait();
         }
+
     }
 }
 

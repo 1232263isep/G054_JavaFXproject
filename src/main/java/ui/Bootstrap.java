@@ -1,14 +1,16 @@
 package ui;
 
 import controller.authorization.AuthenticationController;
+import model.*;
 import model.repository.*;
-import model.Employee;
-import model.Organization;
-import model.Skill;
 import model.repository.*;
-
+import java.time.Duration;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
+
+import static model.GardenType.GARDEN;
 
 
 public class Bootstrap implements Runnable {
@@ -21,6 +23,30 @@ public class Bootstrap implements Runnable {
         CreateSkills();
         createJobs();
         createCollaborators();
+        createGreenSpaces();
+        createEntries();
+    }
+
+
+
+    private void createEntries() {
+        EntryRepository entryRepository=Repositories.getInstance().getEntryRepository();
+        GreenSpaceRepository greenSpaceRepository = Repositories.getInstance().getGreenSpaceRepository();
+        GreenSpace g=greenSpaceRepository.getGreenSpaceByName("Garden","gsm@this.app");
+        greenSpaceRepository.registerGreenSpace("Medium Garden","Garden",47,"Rua","gsm@this.app");
+        entryRepository.addEntryToDoList(new Task("clean","clean all park"), Duration.parse("P4DT2H"), "Low" ,g,"gsm@this.app");
+        entryRepository.addEntryToDoList(new Task("clean","clean"), Duration.parse("P42DT3H"), "Medium" ,g,"gsm@this.app");
+        entryRepository.addEntryToDoList(new Task("clean Park","clean all park"), Duration.parse("P2DT6H"), "High" ,g,"gsm@this.app");
+        entryRepository.addEntryToDoList(new Task("Cut trees","cut all trees"), Duration.parse("P3DT5H"), "High" ,g,"gsm@this.app");
+        entryRepository.addEntryToDoList(new Task("Cut grass","cut all grass"), Duration.parse("P0DT4H"), "Low" ,g,"gsm@this.app");
+    }
+
+    private void createGreenSpaces() {
+        GreenSpaceRepository greenSpaceRepository = Repositories.getInstance().getGreenSpaceRepository();
+        greenSpaceRepository.registerGreenSpace("Garden","Garden",34,"Rua","gsm@this.app");
+        greenSpaceRepository.registerGreenSpace("Park","Medium Sized Park",59,"Via","gsm@this.app");
+        greenSpaceRepository.registerGreenSpace("Jardim","Large Sized Park",125,"Route","gsm@this.app");
+        greenSpaceRepository.registerGreenSpace("Small Garden","Garden",14,"Street","gsm@this.app");
     }
 
     private void addOrganization() {
@@ -134,7 +160,7 @@ public class Bootstrap implements Runnable {
         CollaboratorRepository collaboratorRepository = Repositories.getInstance().getCollaboratorRepository();
         SkillRepository skillRepository = Repositories.getInstance().getSkillRepository();
         JobRepository jobRepository = Repositories.getInstance().getJobRepository();
-
+        Collaborator c=new Collaborator("John Doe", new Date(), new Date(), "123 Main St", "CityA", "12345678", 912345678, "john.doe@example.com", "ID Card", "12345678-1JD1", jobRepository.getJobByName("Cleaning"));
         collaboratorRepository.registerCollaborator("John Doe", new Date(), new Date(), "123 Main St", "CityA", "12345678", 912345678, "john.doe@example.com", "ID Card", "12345678-1JD1", jobRepository.getJobByName("Cleaning"));
 
         collaboratorRepository.registerCollaborator("Jane Smith", new Date(), new Date(), "456 Elm St", "CityB", "54321678", 912165487, "jane.smith@example.com", "ID Card", "12345678-1JS1", jobRepository.getJobByName("Data Scientist"));
@@ -149,5 +175,13 @@ public class Bootstrap implements Runnable {
         collaboratorRepository.registerCollaborator("Carol White", new Date(), new Date(), "654 Cedar St", "CityE", "87654678", 913245687, "carol.white@example.com", "ID Card", "12345678-1CW1", jobRepository.getJobByName("Marketing Specialist"));
 
         collaboratorRepository.addSkills(skillRepository.getSkills(), "12345678-1JD1");
+        TeamRepository teamRepository=Repositories.getInstance().getTeamRepository();
+        List<Collaborator> c1=new ArrayList<Collaborator>();
+        c1.add(c);
+        teamRepository.addTeam(new Team("Tem one", c1));
+        teamRepository.addTeam(new Team("Tem two", c1));
+        teamRepository.addTeam(new Team("Tem three", c1));
+        teamRepository.addTeam(new Team("Tem four", c1));
+
     }
 }
