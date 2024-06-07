@@ -76,6 +76,11 @@ public class AddAgendaUI implements Runnable {
             a.showAndWait();
             flag=false;
         }
+        if (this.dateDate.getValue()==null) {
+            Alert a = new Alert(Alert.AlertType.ERROR, "Please select a date");
+            a.showAndWait();
+            flag=false;
+        }
         LocalDate ld = dateDate.getValue();
         Calendar c =  Calendar.getInstance();
         c.set(ld.getYear(), ld.getMonthValue()-1, ld.getDayOfMonth());
@@ -90,6 +95,7 @@ public class AddAgendaUI implements Runnable {
         if (flag) {
             submitData();
         }
+        this.choiceEntry.getSelectionModel().clearSelection();
     }
 
     @FXML

@@ -163,6 +163,11 @@ public class AddToDoListUI implements Runnable {
         if (flag) {
             submitData();
         }
+        this.txtDays.clear();
+        this.txtDescription.clear();
+        this.txtDuration.clear();
+        this.txtHours.clear();
+        this.txtNameTask.clear();
     }
 
 

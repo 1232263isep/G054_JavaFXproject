@@ -100,6 +100,9 @@ public class AssignTeamToEntryUI implements Runnable {
                 a.showAndWait();
         }
     }
+    this.txtMax.clear();
+        this.txtMin.clear();
+        this.choiceEntry.getSelectionModel().clearSelection();
     }
 
     @FXML
